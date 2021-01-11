@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
-import asyncio
+from discord.utils import get
+import asyncio 
+import math
 
 global voteCounter
 global memberSelected
@@ -25,7 +27,7 @@ async def vote(ctx):
 
     global voteCounter
 
-    minAmountTimeOut = 2
+    minAmountTimeOut = 3
 
     if(voteCounter < minAmountTimeOut):
         voteCounter += 1

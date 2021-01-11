@@ -1,10 +1,12 @@
 import discord
 from discord.ext import commands
+from discord.utils import get
+
 import json
 import os
 import ddmais as dd
 import timeout as timeoutfile
-
+import time
 
 # verificar se o arquivo de configuração existe
 if os.path.exists(os.getcwd() + "/config.json"):
@@ -39,6 +41,8 @@ async def flanas(ctx):
     flanasCounter = flanasCounter + 1
     await dd.flanas(ctx, flanasCounter)
 
+
+
 @bot.command()
 async def timeout(ctx, member: discord.Member):
     await timeoutfile.timeout(ctx, member)
@@ -46,5 +50,30 @@ async def timeout(ctx, member: discord.Member):
 @bot.command()
 async def vote(ctx):
     await timeoutfile.vote(ctx)
+
+
+
+
+@bot.command()
+async def join(ctx):
+    global voice
+    channel = ctx.message.author.voice.channel
+    voice = get(bot.voice_clients, guild = ctx.guild)
+
+    if voice and voice.is_connected():
+        await voice.move_to(channel)
+    else:
+        voice = await channel.connect()
+    
+    await ctx.send(f'Entrou em {channel}')
+    
+@bot.command()
+async def leave(ctx):
+    channel = ctx.message.author.voice.channel
+    voice = get(bot.voice_clients, guild = ctx.guild)
+
+    if voice and voice.is_connected():
+        await voice.disconnect()
+
 
 bot.run(token)
