@@ -3,6 +3,7 @@ from discord.ext import commands
 import json
 import os
 import ddmais as dd
+import timeout as timeoutfile
 
 
 # verificar se o arquivo de configuração existe
@@ -37,5 +38,13 @@ async def flanas(ctx):
     global flanasCounter
     flanasCounter = flanasCounter + 1
     await dd.flanas(ctx, flanasCounter)
+
+@bot.command()
+async def timeout(ctx, member: discord.Member):
+    await timeoutfile.timeout(ctx, member)
+
+@bot.command()
+async def vote(ctx):
+    await timeoutfile.vote(ctx)
 
 bot.run(token)
