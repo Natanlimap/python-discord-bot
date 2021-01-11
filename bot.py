@@ -42,6 +42,11 @@ async def flanas(ctx):
     await dd.flanas(ctx, flanasCounter)
 
 
+@bot.command()
+async def bolha(ctx):
+    await dd.bolha(ctx)
+
+
 
 @bot.command()
 async def timeout(ctx, member: discord.Member):
@@ -51,7 +56,10 @@ async def timeout(ctx, member: discord.Member):
 async def vote(ctx):
     await timeoutfile.vote(ctx)
 
-
+@bot.command()
+async def teste(ctx):
+    vc = ctx.message.author.voice.channel.id
+    print(vc)
 
 
 @bot.command()

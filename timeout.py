@@ -10,12 +10,18 @@ memberSelected = None
 
 voteCounter = 0
 
-async def timeout(ctx, teste):
+async def timeout(ctx, member):
     global memberSelected
-    memberSelected = teste
+    memberSelected = member
     await ctx.send(F"A DEMOCRACIA VAI VENCER DESSA VEZ")
-    await vote(ctx)
-    
+
+    voiceChannelID = ctx.message.author.voice.channel.id
+    voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
+    voiceChannelUsersAmount = len(voiceChannel.members)
+    minAmountTimeOut = voiceChannelUsersAmount
+
+    await ctx.send(F"{voteCounter}/{minAmountTimeOut}")
+
     
 
 async def vote(ctx):
@@ -27,7 +33,10 @@ async def vote(ctx):
 
     global voteCounter
 
-    minAmountTimeOut = 3
+    voiceChannelID = ctx.message.author.voice.channel.id
+    voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
+    voiceChannelUsersAmount = len(voiceChannel.members)
+    minAmountTimeOut = voiceChannelUsersAmount
 
     if(voteCounter < minAmountTimeOut):
         voteCounter += 1
