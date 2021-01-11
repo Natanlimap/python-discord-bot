@@ -29,7 +29,10 @@ token = configData["Token"]
 prefix = configData["Prefix"]
 flanasCounter = configDataDDMais["Flanas"]
 
-bot = commands.Bot(command_prefix=prefix)
+
+intents = discord.Intents.default()
+intents.members = True 
+bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 @bot.event
 async def on_ready():    

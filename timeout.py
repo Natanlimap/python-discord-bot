@@ -4,10 +4,12 @@ from discord.utils import get
 import asyncio 
 import math
 
+
+global userThatvoted
 global voteCounter
 global memberSelected
 memberSelected = None
-
+userThatvoted = []
 voteCounter = 0
 
 async def timeout(ctx, member):
@@ -15,10 +17,8 @@ async def timeout(ctx, member):
     memberSelected = member
     await ctx.send(F"A DEMOCRACIA VAI VENCER DESSA VEZ")
 
-    voiceChannelID = ctx.message.author.voice.channel.id
-    voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
-    voiceChannelUsersAmount = len(voiceChannel.members)
-    minAmountTimeOut = voiceChannelUsersAmount
+    # PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
+    minAmountTimeOut = usersAmount(ctx)
 
     await ctx.send(F"{voteCounter}/{minAmountTimeOut}")
 
@@ -26,27 +26,39 @@ async def timeout(ctx, member):
 
 async def vote(ctx):
     global memberSelected
+    global userThatvoted
 
+    author = ctx.message.author
+    for users in userThatvoted:
+        if(users == author):
+            await ctx.send(F"EI PODE VOTAR DE NOVO NÂO!!!")
+
+            return
+
+    userThatvoted.append(author)
+
+    # CASO O TIMEOUT NAO TENHA SIDO INICIADO 
     if memberSelected is None:
         await ctx.send(f"Digite [timeout @nome para iniciar a votação")
         return        
 
     global voteCounter
 
-    voiceChannelID = ctx.message.author.voice.channel.id
-    voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
-    voiceChannelUsersAmount = len(voiceChannel.members)
-    minAmountTimeOut = voiceChannelUsersAmount
+    # PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
+    minAmountTimeOut = usersAmount(ctx)
 
+    # CASO NÃO TENHA CHEGADO AINDA NA QUANTIDADE MINIMA DE VOTAÇÃO
     if(voteCounter < minAmountTimeOut):
         voteCounter += 1
         await ctx.send(F"{voteCounter}/{minAmountTimeOut}")
 
+    # QUANDO ATINGIR A QUANTIDADE MINIMA
     if(voteCounter == minAmountTimeOut):        
         await ctx.send(F"{memberSelected.mention} teremos paz por 10 minutos")
         await mute(ctx)
         voteCounter = 0
         memberSelected = None
+        userThatvoted = []
 
 async def mute(ctx):
     await memberSelected.edit(mute=True)
@@ -55,6 +67,19 @@ async def mute(ctx):
 
 async def unMute():
      await memberSelected.edit(mute=False)
+
+
+# PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
+def usersAmount(ctx):
+    
+    
+    voiceChannelID = ctx.message.author.voice.channel.id
+    voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
+    voiceChannelUsersAmount = round(len(voiceChannel.members)*0.7)
+    minAmountTimeOut = voiceChannelUsersAmount
+    if (minAmountTimeOut == 0):
+        minAmountTimeOut = 1
+    return minAmountTimeOut
 
 
     
