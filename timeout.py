@@ -31,7 +31,7 @@ async def vote(ctx):
     author = ctx.message.author
     for users in userThatvoted:
         if(users == author):
-            await ctx.send(F"EI PODE VOTAR DE NOVO NÂO!!!")
+            await ctx.send(F"Im sorry but you can only vote once")
 
             return
 
@@ -39,7 +39,7 @@ async def vote(ctx):
 
     # CASO O TIMEOUT NAO TENHA SIDO INICIADO 
     if memberSelected is None:
-        await ctx.send(f"Digite [timeout @nome para iniciar a votação")
+        await ctx.send(f"type -timeout @user to start a vote")
         return        
 
     global voteCounter
@@ -54,7 +54,7 @@ async def vote(ctx):
 
     # QUANDO ATINGIR A QUANTIDADE MINIMA
     if(voteCounter == minAmountTimeOut):        
-        await ctx.send(F"{memberSelected.mention} teremos paz por 10 minutos")
+        await ctx.send(F"{memberSelected.mention} has been mutated for 10 minutes")
         await mute(ctx)
         voteCounter = 0
         memberSelected = None
