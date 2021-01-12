@@ -15,7 +15,7 @@ voteCounter = 0
 async def timeout(ctx, member):
     global memberSelected
     memberSelected = member
-    await ctx.send(F"A DEMOCRACIA VAI VENCER DESSA VEZ")
+    await ctx.send(F"The vote to silence {memberSelected.mention}  for 10 minutes will start soon. Type -vote if you agree")
 
     # PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
     minAmountTimeOut = usersAmount(ctx)

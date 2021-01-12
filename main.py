@@ -4,50 +4,59 @@ from discord.utils import get
 
 import json
 import os
-import ddmais as dd
+import timesCounter as TimesCounterFile
 import timeout as timeoutfile
 import time
 
-# verificar se o arquivo de configuração existe
+# Verificar se o arquivo de configuração existe
 if os.path.exists(os.getcwd() + "/config.json"):
     
+    # Pegar os dados dos arquivo de configuração e de data   
     with open("./config.json") as f:
         configData = json.load(f)
     
-    with open("./ddmais.json") as ddmaisJson:
-        configDataDDMais = json.load(ddmaisJson)
+    with open("./data.json") as dataJson:
+        jsonData = json.load(dataJson)
 
+#  Caso o arquivo de configuração não exista       
 else:
+
     # criando um arquivo de configuração padrão
-    configTemplate = {"Token": "", "Prefix": "["}
+    configTemplate = {"Token": "", "Prefix": "-"}
 
     with open(os.getcwd() + "/config.json", "w+") as f:
         json.dump(configTemplate, f) 
 
-# passando os parametros do arquivo de configuração
+
+# Passando os parametros do arquivo de configuração
 token = configData["Token"]
 prefix = configData["Prefix"]
-flanasCounter = configDataDDMais["Flanas"]
+timesCounter = jsonData["Times"]
 
 
+# Criando o intents para poder receber informações privilegiadas do servidor
 intents = discord.Intents.default()
 intents.members = True 
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
+
+# Quando o bot for inicializado
 @bot.event
 async def on_ready():    
     print("Bot is ready.")
 
-@bot.command()
-async def flanas(ctx):
-    global flanasCounter
-    flanasCounter = flanasCounter + 1
-    await dd.flanas(ctx, flanasCounter)
 
 
 @bot.command()
-async def bolha(ctx):
-    await dd.bolha(ctx)
+async def increaseTimesCounter(ctx):
+    global timesCounter
+    timesCounter = timesCounter + 1
+    await TimesCounterFile.increase(ctx, timesCounter)
+
+
+@bot.command()
+async def getTimesCounter(ctx):
+    await TimesCounterFile.get(ctx, timesCounter)
 
 
 
