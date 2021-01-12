@@ -8,6 +8,9 @@ import timesCounter as TimesCounterFile
 import timeout as timeoutfile
 import time
 
+
+import mychatbot as chat
+
 # Verificar se o arquivo de configuração existe
 if os.path.exists(os.getcwd() + "/config.json"):
     
@@ -48,6 +51,10 @@ async def on_ready():
 
 
 @bot.command()
+async def m(ctx, message):
+    await chat.message(ctx, message)
+
+@bot.command()
 async def increaseTimesCounter(ctx):
     global timesCounter
     timesCounter = timesCounter + 1
@@ -68,10 +75,6 @@ async def timeout(ctx, member: discord.Member):
 async def vote(ctx):
     await timeoutfile.vote(ctx)
 
-@bot.command()
-async def teste(ctx):
-    vc = ctx.message.author.voice.channel.id
-    print(vc)
 
 
 @bot.command()
@@ -85,7 +88,7 @@ async def join(ctx):
     else:
         voice = await channel.connect()
     
-    await ctx.send(f'Entrou em {channel}')
+    await ctx.send(f'Join {channel}')
     
 @bot.command()
 async def leave(ctx):
