@@ -49,11 +49,13 @@ async def on_ready():
     print("Bot is ready.")
 
 
-
+# Função de mensagem com o chat bot trainável
 @bot.command()
 async def m(ctx, message):
     await chat.message(ctx, message)
 
+
+# Incrementa o contador
 @bot.command()
 async def increaseTimesCounter(ctx):
     global timesCounter
@@ -61,16 +63,18 @@ async def increaseTimesCounter(ctx):
     await TimesCounterFile.increase(ctx, timesCounter)
 
 
+# Pega o valor do contador
 @bot.command()
 async def getTimesCounter(ctx):
     await TimesCounterFile.get(ctx, timesCounter)
 
 
-
+# Função de timeout para um usuário
 @bot.command()
 async def timeout(ctx, member: discord.Member):
     await timeoutfile.timeout(ctx, member)
 
+# Votação para o timeout
 @bot.command()
 async def vote(ctx):
     await timeoutfile.vote(ctx)

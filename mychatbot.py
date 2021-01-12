@@ -4,10 +4,9 @@ import os
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
-
-conversas = "oi galado.oi"
+# Chat bot config
 chatbot = ChatBot(
-    'BotDaLaje',
+    'PythonBot',
     storage_adapter = 'chatterbot.storage.SQLStorageAdapter',
     logic_adapters = [
         'chatterbot.logic.TimeLogicAdapter',
@@ -18,14 +17,12 @@ chatbot = ChatBot(
 )
 
 
-
 chatbot = ChatBot('Ron Obvious')
 trainer = ChatterBotCorpusTrainer(chatbot)
 
-
+# Funçao que envia para o discord uma mensagem respondendo a mensagem enviada pelo usuário
 async def message(ctx, msg):
-    resposta = chatbot.get_response(msg)
-    await ctx.send(F"{resposta}")
-    trainer.export_for_training('./my_export.json')
+    response = chatbot.get_response(msg)
+    await ctx.send(F"{response}")
 
 
