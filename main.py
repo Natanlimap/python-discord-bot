@@ -114,5 +114,22 @@ async def poll(ctx, *, message):
     await msg.add_reaction('👍')
     await msg.add_reaction('👎')
 
+@bot.command()
+async def wanted(ctx, member: discord.Member = None):
+    if member == None:
+        member = ctx.author 
+
+    wanted = Image.open("wanted.jpg")
+    asset = ctx.author.avatar_url_as(size = 128)
+    data = BytesIO(await asset.read())
+    profilePic= Image.open(data)
+
+    profilePic = profilePic.resize((600, 450))
+    wanted.paste(profilePic, (50, 212))
+
+    wanted.save('profile.jpg')
+
+    await ctx.send(file = discord.File('profile.jpg'))
+    print(ctx.author)
 
 bot.run(token)
