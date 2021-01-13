@@ -46,6 +46,10 @@ intents.members = True
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 
+# Permite o bot falar com outro
+bot._skip_check = lambda x, y: False
+
+
 # Quando o bot for inicializado
 @bot.event
 async def on_ready():    
@@ -58,12 +62,19 @@ async def m(ctx, message):
     await chat.message(ctx, message)
 
 
+# Função de mensagem com o chat bot trainável
+@bot.command()
+async def mb(ctx, message):
+    await chat.messageWithAnotherBot(ctx, message)
+
+
 # Incrementa o contador
 @bot.command()
 async def increaseTimesCounter(ctx):
     global timesCounter
     timesCounter = timesCounter + 1
     await TimesCounterFile.increase(ctx, timesCounter)
+
 
 
 # Pega o valor do contador
@@ -118,7 +129,7 @@ async def poll(ctx, *, message):
 async def wanted(ctx, member: discord.Member = None):
     if member == None:
         member = ctx.author 
-
+    
     wanted = Image.open("wanted.jpg")
     asset = ctx.author.avatar_url_as(size = 128)
     data = BytesIO(await asset.read())
@@ -131,5 +142,12 @@ async def wanted(ctx, member: discord.Member = None):
 
     await ctx.send(file = discord.File('profile.jpg'))
     print(ctx.author)
+
+
+# Permite o bot falar com outro
+@bot.event
+async def on_message(message):
+    ctx = await bot.get_context(message)
+    await bot.invoke(ctx)
 
 bot.run(token)

@@ -25,4 +25,7 @@ async def message(ctx, msg):
     response = chatbot.get_response(msg)
     await ctx.send(F"{response}")
 
+async def messageWithAnotherBot(ctx, msg):
+    response = chatbot.get_response(msg)
+    await ctx.send(F"[mb {response}")
 
