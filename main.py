@@ -8,6 +8,9 @@ import timesCounter as TimesCounterFile
 import timeout as timeoutfile
 import time
 
+from PIL import Image
+from io import BytesIO
+
 
 import mychatbot as chat
 
@@ -80,7 +83,7 @@ async def vote(ctx):
     await timeoutfile.vote(ctx)
 
 
-
+# O bot entra no canal de voz de onde o usuário está
 @bot.command()
 async def join(ctx):
     global voice
@@ -94,13 +97,22 @@ async def join(ctx):
     
     await ctx.send(f'Join {channel}')
     
+# O bot sai do canal de voz de onde o usuário está
+
 @bot.command()
 async def leave(ctx):
-    channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild = ctx.guild)
 
     if voice and voice.is_connected():
         await voice.disconnect()
+
+
+@bot.command()
+async def poll(ctx, *, message):
+    emb = discord.Embed(tile='VOTAÇÂO', description=f'{message}')
+    msg = await ctx.channel.send(embed=emb)
+    await msg.add_reaction('👍')
+    await msg.add_reaction('👎')
 
 
 bot.run(token)

@@ -72,7 +72,6 @@ async def unMute():
 # PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
 def usersAmount(ctx):
     
-    
     voiceChannelID = ctx.message.author.voice.channel.id
     voiceChannel = discord.utils.get(ctx.guild.channels, id=voiceChannelID)
     voiceChannelUsersAmount = round(len(voiceChannel.members)*0.7)
