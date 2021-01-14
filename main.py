@@ -46,8 +46,18 @@ intents.members = True
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 
+# Como não será preciso nesse escopo está comentado
+
 # Permite o bot falar com outro
-bot._skip_check = lambda x, y: False
+# bot._skip_check = lambda x, y: False
+
+# Permite o bot falar com outro
+# @bot.event
+# async def on_message(message):
+#     ctx = await bot.get_context(message)
+#     await bot.invoke(ctx)
+
+
 
 
 # Quando o bot for inicializado
@@ -56,17 +66,11 @@ async def on_ready():
     print("Bot is ready.")
 
 
+
 # Função de mensagem com o chat bot trainável
 @bot.command()
-async def m(ctx, message):
+async def botMessage(ctx, message):
     await chat.message(ctx, message)
-
-
-# Função de mensagem com o chat bot trainável
-@bot.command()
-async def mb(ctx, message):
-    await chat.messageWithAnotherBot(ctx, message)
-
 
 # Incrementa o contador
 @bot.command()
@@ -85,18 +89,18 @@ async def getTimesCounter(ctx):
 
 # Função de timeout para um usuário
 @bot.command()
-async def timeout(ctx, member: discord.Member):
+async def startVoteToUserTimeout(ctx, member: discord.Member):
     await timeoutfile.timeout(ctx, member)
 
 # Votação para o timeout
 @bot.command()
-async def vote(ctx):
+async def voteToTimeout(ctx):
     await timeoutfile.vote(ctx)
 
 
 # O bot entra no canal de voz de onde o usuário está
 @bot.command()
-async def join(ctx):
+async def joinChannel(ctx):
     global voice
     channel = ctx.message.author.voice.channel
     voice = get(bot.voice_clients, guild = ctx.guild)
@@ -111,7 +115,7 @@ async def join(ctx):
 # O bot sai do canal de voz de onde o usuário está
 
 @bot.command()
-async def leave(ctx):
+async def leaveChannel(ctx):
     voice = get(bot.voice_clients, guild = ctx.guild)
 
     if voice and voice.is_connected():
@@ -121,9 +125,9 @@ async def leave(ctx):
 @bot.command()
 async def poll(ctx, *, message):
     emb = discord.Embed(tile='VOTAÇÂO', description=f'{message}')
-    msg = await ctx.channel.send(embed=emb)
-    await msg.add_reaction('👍')
-    await msg.add_reaction('👎')
+    botMessage = await ctx.channel.send(embed=emb)
+    await botMessage.add_reaction('👍')
+    await botMessage.add_reaction('👎')
 
 @bot.command()
 async def wanted(ctx, member: discord.Member = None):
@@ -144,10 +148,5 @@ async def wanted(ctx, member: discord.Member = None):
     print(ctx.author)
 
 
-# Permite o bot falar com outro
-@bot.event
-async def on_message(message):
-    ctx = await bot.get_context(message)
-    await bot.invoke(ctx)
 
 bot.run(token)

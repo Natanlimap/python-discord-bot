@@ -5,9 +5,6 @@ import asyncio
 import math
 
 
-global userThatvoted
-global voteCounter
-global memberSelected
 memberSelected = None
 userThatvoted = []
 voteCounter = 0
@@ -27,6 +24,7 @@ async def timeout(ctx, member):
 async def vote(ctx):
     global memberSelected
     global userThatvoted
+    global voteCounter
 
     author = ctx.message.author
     for users in userThatvoted:
@@ -42,7 +40,6 @@ async def vote(ctx):
         await ctx.send(f"type -timeout @user to start a vote")
         return        
 
-    global voteCounter
 
     # PEGANDO A QUANTIDADE DE USUARIOS LOGADOS
     minAmountTimeOut = usersAmount(ctx)
@@ -56,13 +53,13 @@ async def vote(ctx):
     if(voteCounter == minAmountTimeOut):        
         await ctx.send(F"{memberSelected.mention} has been mutated for 10 minutes")
         await mute(ctx)
-        voteCounter = 0
-        memberSelected = None
-        userThatvoted = []
+        resetVoteMemberUser()
+
 
 async def mute(ctx):
+    mutedTimeInSeconds = 100000 
     await memberSelected.edit(mute=True)
-    await asyncio.sleep(4)
+    await asyncio.sleep(mutedTimeInSeconds)
     await unMute()
 
 async def unMute():
@@ -81,4 +78,11 @@ def usersAmount(ctx):
     return minAmountTimeOut
 
 
+def resetVoteMemberUser():
+    global memberSelected
+    global userThatvoted
+    global voteCounter
+    voteCounter = 0
+    memberSelected = None
+    userThatvoted = []
     
