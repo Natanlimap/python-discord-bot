@@ -6,6 +6,8 @@ A linguagem utilizada para desenvolver esse bot foi Python
 ## Setup Inicial
 
 
+## Funcionalidades
+
 ## Licença
 
 
