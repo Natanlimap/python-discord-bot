@@ -11,7 +11,7 @@ A linguagem utilizada para desenvolver esse bot foi Python
 
 Os pacotes utilizados no projeto foram:
 
-| Plugin | Repositório |
+| Nome | Repositório |
 | ------ | ------ |
 | discord.py | https://github.com/Rapptz/discord.py |
 | chatterbot | https://github.com/gunthercox/ChatterBot |
