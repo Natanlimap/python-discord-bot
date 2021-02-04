@@ -9,6 +9,7 @@ import time
 from PIL import Image
 from io import BytesIO
 
+import twitter as Twitter
 
 # Verificar se o arquivo de configuração existe
 if os.path.exists(os.getcwd() + "/config.json"):
@@ -106,6 +107,14 @@ async def wanted(ctx, member: discord.Member = None):
     await ctx.send(file = discord.File('profile.jpg'))
     print(ctx.author)
 
+@bot.command()
+async def twitter(ctx, user, quant):
+    print(user)
+    menssagens = Twitter.getTweets(user, quant)
+
+    for mensagem in menssagens:
+        embedVar = discord.Embed(title=("@" + user), description=(mensagem), color=0x1DE7EB)
+        await ctx.send(embed=embedVar)
 
 
 bot.run(token)
