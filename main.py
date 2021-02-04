@@ -30,9 +30,9 @@ else:
 
 # Passando os parametros do arquivo de configuração
 # token = configData["Token"]
-# prefix = configData["Prefix"]
+prefix = '-'
 token = os.getenv("DISCORD_BOT_TOKEN")
-prefix = os.getenv("DISCORD_BOT_TOKEN")
+# prefix = os.getenv("DISCORD_BOT_TOKEN")
 
 
 # Criando o intents para poder receber informações privilegiadas do servidor
