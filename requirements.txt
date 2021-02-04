@@ -1,3 +1,5 @@
 discord.py
 pillow
-twitter-scraper
+twint
+pandas
+nest_asyncio
