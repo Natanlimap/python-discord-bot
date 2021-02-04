@@ -3,7 +3,3 @@ pillow
 twint
 nest_asyncio
 pandas
-os
-json
-io
-PIL
