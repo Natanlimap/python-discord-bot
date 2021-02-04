@@ -1,5 +1,9 @@
 discord.py
 pillow
 twint
-pandas
 nest_asyncio
+pandas
+os
+json
+io
+PIL
