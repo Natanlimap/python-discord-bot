@@ -4,8 +4,6 @@ from discord.utils import get
 
 import json
 import os
-import timesCounter as TimesCounterFile
-import timeout as timeoutfile
 import time
 
 from PIL import Image
