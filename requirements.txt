@@ -2,4 +2,4 @@ discord.py
 pillow
 nest_asyncio
 pandas
--e git+https://github.com/twintproject/twint.git@origin/master#egg=twint
+-e --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint
