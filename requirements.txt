@@ -1,5 +1,4 @@
 discord.py
 pillow
 nest_asyncio
-pandas
-git+https://github.com/twintproject/twint.git@origin/master#egg=twint
+requests
