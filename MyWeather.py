@@ -45,16 +45,9 @@ import json
 import os
 import time
 
-if os.path.exists(os.getcwd() + "/config.json"):
-    
-    # Pegar os dados dos arquivo de configuração e de data   
-    with open("./config.json") as f:
-        configData = json.load(f)
-    
+
 key = os.getenv("WEATHER_KEY")
 
-if(not key):
-    key = configData['WeatherKey']
 
 def getWeather(local):
     time.sleep(2)
