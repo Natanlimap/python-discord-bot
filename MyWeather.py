@@ -45,9 +45,7 @@ import json
 import os
 import time
 
-
 key = os.getenv("WEATHER_KEY")
-
 
 def getWeather(local):
     time.sleep(2)
