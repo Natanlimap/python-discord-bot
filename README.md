@@ -1,11 +1,13 @@
 # 🤖 Python Discord Bot
 
+
 Esse repositório tem como objetivo criar constantemente um Bot no Discord com múltiplas funções.
 A linguagem utilizada para desenvolver esse bot foi Python
 
 ## Setup Inicial
 
-## Funcionalidades
+## Adicione o BOT no seu servidor
+https://discord.com/api/oauth2/authorize?client_id=798530286665203722&permissions=8&scope=bot
 
 ## Pacotes
 
