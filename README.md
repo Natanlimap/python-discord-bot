@@ -14,8 +14,6 @@ Os pacotes utilizados no projeto foram:
 | Nome | Repositório |
 | ------ | ------ |
 | discord.py | https://github.com/Rapptz/discord.py |
-| chatterbot | https://github.com/gunthercox/ChatterBot |
-| chatterbot-corpus | https://github.com/gunthercox/chatterbot-corpus |
 | pillow | https://github.com/python-pillow/Pillow |
 
 
