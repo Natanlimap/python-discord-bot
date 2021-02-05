@@ -18,9 +18,3 @@ Os pacotes utilizados no projeto foram:
 | discord.py | https://github.com/Rapptz/discord.py |
 | pillow | https://github.com/python-pillow/Pillow |
 
-
-
-## Licença
-
-
-
