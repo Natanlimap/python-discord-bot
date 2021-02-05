@@ -9,7 +9,8 @@ import time
 from PIL import Image
 from io import BytesIO
 
-import twitter as Twitter
+
+from MyWeather import getWeather, getIconUrl
 
 # Verificar se o arquivo de configuração existe
 if os.path.exists(os.getcwd() + "/config.json"):
@@ -39,18 +40,6 @@ prefix = '-'
 intents = discord.Intents.default()
 intents.members = True 
 bot = commands.Bot(command_prefix=prefix, intents=intents)
-
-
-# Como não será preciso nesse escopo está comentado
-
-# Permite o bot falar com outro
-# bot._skip_check = lambda x, y: False
-
-# Permite o bot falar com outro
-# @bot.event
-# async def on_message(message):
-#     ctx = await bot.get_context(message)
-#     await bot.invoke(ctx)
 
 
 
@@ -107,16 +96,18 @@ async def wanted(ctx, member: discord.Member = None):
     wanted.save('profile.jpg')
 
     await ctx.send(file = discord.File('profile.jpg'))
-    print(ctx.author)
 
 @bot.command()
-async def twitter(ctx, user, quant):
-    print(user)
-    menssagens = Twitter.getTweets(user, quant)
+async def weather(ctx, local):
+    weather = getWeather(local)
+    weatherTitle = f'{weather.city} | {weather.region} | {weather.country}'
+    weatherDescription = f'Min: {weather.forecast.mintemp} Max: {weather.forecast.maxtemp} \n {weather.forecast.condition}'
 
-    for mensagem in menssagens:
-        embedVar = discord.Embed(title=("@" + user), description=(mensagem), color=0x1DE7EB)
-        await ctx.send(embed=embedVar)
+    embedVar = discord.Embed(title=weatherTitle, description= weatherDescription,color=0x1DE7EB,)
+    embedVar.set_thumbnail(url=getIconUrl(weather.forecast.condition))
+    await ctx.send(embed=embedVar)
+
+
 
 
 bot.run(token)
