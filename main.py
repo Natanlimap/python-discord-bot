@@ -30,9 +30,9 @@ else:
 
 
 # Passando os parametros do arquivo de configuração
-token = configData["Token"]
+# token = configData["Token"]
 prefix = '-'
-# token = os.getenv("DISCORD_BOT_TOKEN")
+token = os.getenv("DISCORD_BOT_TOKEN")
 # prefix = os.getenv("DISCORD_BOT_TOKEN")
 
 
