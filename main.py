@@ -112,7 +112,22 @@ async def weather(ctx, local):
     embedVar.set_thumbnail(url=getIconUrl(weather.forecast.condition))
     await ctx.send(embed=embedVar)
 
+@bot.command()
+async def createRole(ctx, *, roleName):
+    server = ctx.message.guild
+    role = await server.create_role(name=roleName)
+    member = ctx.message.author
+    await ctx.send(f"Cargo {roleName} criado!")
 
+@bot.command()
+async def role(ctx, member:discord.Member, role: discord.Role): 
+    if role in member.roles:
+        await member.remove_roles(role)
+        await ctx.send(f"{member.mention} foi removido ao cargo de {role}")
+
+    else:
+        await member.add_roles(role)
+        await ctx.send(f"{member.mention} foi adicionado ao cargo de {role}!")
 
 
 bot.run(token)
