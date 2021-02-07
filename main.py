@@ -47,7 +47,7 @@ intents.members = True
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 
-ON_JOIN_ROLE_ID = 807978621243228181
+ON_JOIN_ROLE_ID = 0
 
 
 # Quando o bot for inicializado
@@ -140,8 +140,11 @@ async def urole(ctx, member:discord.Member, role: discord.Role):
         await ctx.send(f"{member.mention} foi adicionado ao cargo de {role}!")
         print(role.id)
 
-
-
+@bot.command()
+async def setOnJoinRole(ctx, role: discord.Role):
+    global ON_JOIN_ROLE_ID
+    ON_JOIN_ROLE_ID = role.id
+    await ctx.send(f"Role {role} foi definido como o cargo para novos membros")
 
 #eventos
 
@@ -149,4 +152,10 @@ async def urole(ctx, member:discord.Member, role: discord.Role):
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, id=ON_JOIN_ROLE_ID)
     await member.add_roles(role)
+
+
+
+
 bot.run(token)
+
+
