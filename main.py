@@ -14,7 +14,7 @@ import time
 from PIL import Image
 from io import BytesIO
 
-
+from utils import getRGBFormat
 from MyWeather import getWeather, getIconUrl
 
 # Verificar se o arquivo de configuração existe
@@ -112,15 +112,23 @@ async def weather(ctx, local):
     embedVar.set_thumbnail(url=getIconUrl(weather.forecast.condition))
     await ctx.send(embed=embedVar)
 
+
 @bot.command()
-async def createRole(ctx, *, roleName):
-    server = ctx.message.guild
-    role = await server.create_role(name=roleName)
-    member = ctx.message.author
+async def cdrole(ctx, *, roleName):
+    guild = ctx.message.guild
+    role = await guild.create_role(name=roleName, hoist=True)
     await ctx.send(f"Cargo {roleName} criado!")
 
 @bot.command()
-async def role(ctx, member:discord.Member, role: discord.Role): 
+async def crgbrole(ctx, r, g, b, *, roleName):
+    
+    guild = ctx.message.guild
+    role = await guild.create_role(name=roleName, hoist=True, color=discord.Colour.from_rgb(r=int(r), g=int(g), b=int(b)))
+    await ctx.send(f"Cargo {roleName} criado!")
+
+
+@bot.command()
+async def urole(ctx, member:discord.Member, role: discord.Role): 
     if role in member.roles:
         await member.remove_roles(role)
         await ctx.send(f"{member.mention} foi removido ao cargo de {role}")
