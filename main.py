@@ -49,6 +49,7 @@ bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 ON_JOIN_ROLE_ID = 0
 
+bot.remove_command('help')
 
 # Quando o bot for inicializado
 @bot.event
@@ -146,12 +147,24 @@ async def setOnJoinRole(ctx, role: discord.Role):
     ON_JOIN_ROLE_ID = role.id
     await ctx.send(f"Role {role} foi definido como o cargo para novos membros")
 
+@bot.command()
+async def help(ctx):
+    embed=discord.Embed(title=":page_with_curl: Comandos do Hokage", color=0x00b3ff)
+    embed.set_author(name=" Hokage help ")
+    embed.add_field(name=":white_medium_square: -cdrole [@nome do cargo]", value="Esse comando cria um cargo com o nome desejado.\nExemplo: -cdrole @cargo", inline=False)
+    embed.add_field(name=" :rainbow: -crgbrole [ r ] [ g ][ b ] [@nome do cargo]", value="Esse comando cria um cargo com o nome e cor (RGB) desejados.\nExemplo: -crgbrole 0 0 0 @cargo", inline=False)
+    embed.add_field(name="-setOnJoinRole [@nome do cargo]", value="Esse comando define o cargo padrão dos novos usuários.\nExemplo: -setOnJoinRole @cargo", inline=False)
+    embed.add_field(name="-urole [@user] [@nome do cargo]", value="Esse comando adicionar ou remove o usuário do cargo desejado.\nExemplo: -urole @user @cargo", inline=False)
+    embed.add_field(name=":white_sun_rain_cloud: -weather [nome da cidade]", value="Esse comando mostra a previsão do tempo da cidade desejada.\nExemplo: -weather Natal", inline=False)
+    embed.set_footer(text="Obrigado por utilizar o bot Hokage :pray: ")
+    await ctx.send(embed=embed)
+
 #eventos
 
 @bot.event
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, id=ON_JOIN_ROLE_ID)
-    await member.add_roles(role)
+    await member.add_rles(role)
 
 
 
