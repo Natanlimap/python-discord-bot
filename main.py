@@ -57,9 +57,15 @@ async def on_ready():
     print("Bot is ready.")
 
 
-
+@bot.event
+async def on_message(message):
+    print(message.content)
+    await bot.process_commands(message)
+    if(message.content[0] == "-"):
+        await message.delete()
 
 # O bot entra no canal de voz de onde o usuário está
+@bot.event
 async def joinChannel(ctx):
     global voice
     channel = ctx.message.author.voice.channel
